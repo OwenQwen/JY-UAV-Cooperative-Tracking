@@ -46,12 +46,22 @@ jobs:
         run: |
           python3 -m compileall -q infer_track uav_tracking_control
 
+      - name: Build ROS packages
+        shell: bash
+        run: |
+          source /opt/ros/jazzy/setup.bash
+          cd /tmp/tracking_ws
+          colcon build --event-handlers console_direct+ \
+            --packages-up-to \
+            infer_track_interfaces infer_track uav_tracking_control
+
       - name: Run platform-independent tests
         shell: bash
         env:
           PYTHONPATH: infer_track
         run: |
           source /opt/ros/jazzy/setup.bash
+          source /tmp/tracking_ws/install/setup.bash
           set -euo pipefail
           for test_file in \
             infer_track/test/test_mission_logic.py \
@@ -64,12 +74,3 @@ jobs:
             python3 -m pytest -q "${test_file}"
             echo "::endgroup::"
           done
-
-      - name: Build ROS packages
-        shell: bash
-        run: |
-          source /opt/ros/jazzy/setup.bash
-          cd /tmp/tracking_ws
-          colcon build --event-handlers console_direct+ \
-            --packages-up-to \
-            infer_track_interfaces infer_track uav_tracking_control
