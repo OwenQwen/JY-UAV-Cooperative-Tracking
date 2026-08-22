@@ -1,0 +1,1909 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf version="1.9">
+  <world name="jiangyin">
+    <physics type="ode">
+      <max_step_size>0.004</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+      <real_time_update_rate>250</real_time_update_rate>
+    </physics>
+    <plugin name="gz::sim::systems::Physics" filename="gz-sim-physics-system"/>
+    <plugin name="gz::sim::systems::UserCommands" filename="gz-sim-user-commands-system"/>
+    <plugin name="gz::sim::systems::SceneBroadcaster" filename="gz-sim-scene-broadcaster-system"/>
+    <plugin name="gz::sim::systems::Contact" filename="gz-sim-contact-system"/>
+    <plugin name="gz::sim::systems::Imu" filename="gz-sim-imu-system"/>
+    <plugin name="gz::sim::systems::AirPressure" filename="gz-sim-air-pressure-system"/>
+    <plugin name="gz::sim::systems::ApplyLinkWrench" filename="gz-sim-apply-link-wrench-system"/>
+    <plugin name="gz::sim::systems::NavSat" filename="gz-sim-navsat-system"/>
+    <plugin name="gz::sim::systems::Sensors" filename="gz-sim-sensors-system">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <gui fullscreen="false">
+      <plugin filename="MinimalScene" name="3D View">
+        <gz-gui>
+          <title>3D View</title>
+          <property type="bool" key="showTitleBar">false</property>
+          <property type="string" key="state">docked</property>
+        </gz-gui>
+        <engine>ogre2</engine>
+        <scene>scene</scene>
+        <ambient_light>0.4 0.4 0.4</ambient_light>
+        <background_color>0.6 0.8 1.0</background_color>
+        <camera_pose>-120 60 160 0 0.5 0</camera_pose>
+        <camera_clip>
+          <near>0.25</near>
+          <far>25000</far>
+        </camera_clip>
+      </plugin>
+      <plugin filename="EntityContextMenuPlugin" name="Entity context menu">
+        <gz-gui>
+          <property key="state" type="string">floating</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </gz-gui>
+      </plugin>
+      <plugin filename="GzSceneManager" name="Scene Manager">
+        <gz-gui>
+          <property key="resizable" type="bool">false</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </gz-gui>
+      </plugin>
+      <plugin filename="InteractiveViewControl" name="Interactive view control">
+        <gz-gui>
+          <property key="resizable" type="bool">false</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </gz-gui>
+      </plugin>
+      <plugin filename="CameraTracking" name="Camera Tracking">
+        <gz-gui>
+          <property key="resizable" type="bool">false</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </gz-gui>
+      </plugin>
+      <plugin filename="MarkerManager" name="Marker manager">
+        <gz-gui>
+          <property key="resizable" type="bool">false</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </gz-gui>
+      </plugin>
+      <plugin filename="SelectEntities" name="Select Entities">
+        <gz-gui>
+          <anchors target="Select entities">
+            <line own="right" target="right"/>
+            <line own="top" target="top"/>
+          </anchors>
+          <property key="resizable" type="bool">false</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </gz-gui>
+      </plugin>
+      <plugin filename="VisualizationCapabilities" name="Visualization Capabilities">
+        <gz-gui>
+          <property key="resizable" type="bool">false</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </gz-gui>
+      </plugin>
+      <plugin filename="Spawn" name="Spawn Entities">
+        <gz-gui>
+          <anchors target="Select entities">
+            <line own="right" target="right"/>
+            <line own="top" target="top"/>
+          </anchors>
+          <property key="resizable" type="bool">false</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </gz-gui>
+      </plugin>
+      <plugin name="World control" filename="WorldControl">
+        <gz-gui>
+          <title>World control</title>
+          <property type="bool" key="showTitleBar">0</property>
+          <property type="bool" key="resizable">0</property>
+          <property type="double" key="height">72</property>
+          <property type="double" key="width">121</property>
+          <property type="double" key="z">1</property>
+          <property type="string" key="state">floating</property>
+          <anchors target="3D View">
+            <line own="left" target="left"/>
+            <line own="bottom" target="bottom"/>
+          </anchors>
+        </gz-gui>
+        <play_pause>1</play_pause>
+        <step>1</step>
+        <start_paused>1</start_paused>
+      </plugin>
+      <plugin name="World stats" filename="WorldStats">
+        <gz-gui>
+          <title>World stats</title>
+          <property type="bool" key="showTitleBar">0</property>
+          <property type="bool" key="resizable">0</property>
+          <property type="double" key="height">110</property>
+          <property type="double" key="width">290</property>
+          <property type="double" key="z">1</property>
+          <property type="string" key="state">floating</property>
+          <anchors target="3D View">
+            <line own="right" target="right"/>
+            <line own="bottom" target="bottom"/>
+          </anchors>
+        </gz-gui>
+        <sim_time>1</sim_time>
+        <real_time>1</real_time>
+        <real_time_factor>1</real_time_factor>
+        <iterations>1</iterations>
+      </plugin>
+      <plugin name="Entity tree" filename="EntityTree"/>
+    </gui>
+    <gravity>0 0 -9.8</gravity>
+    <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
+    <atmosphere type="adiabatic"/>
+    <scene>
+      <grid>false</grid>
+      <ambient>0.4 0.4 0.4 1</ambient>
+      <background>0.6 0.75 0.9 1</background>
+      <shadows>true</shadows>
+    </scene>
+    <light name="sunUTC" type="directional">
+      <pose>0 0 500 0 -0 0</pose>
+      <cast_shadows>true</cast_shadows>
+      <intensity>1</intensity>
+      <direction>0.001 0.625 -0.78</direction>
+      <diffuse>0.904 0.904 0.904 1</diffuse>
+      <specular>0.271 0.271 0.271 1</specular>
+      <attenuation>
+        <range>2000</range>
+        <linear>0</linear>
+        <constant>1</constant>
+        <quadratic>0</quadratic>
+      </attenuation>
+      <spot>
+        <inner_angle>0</inner_angle>
+        <outer_angle>0</outer_angle>
+        <falloff>0</falloff>
+      </spot>
+    </light>
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <world_frame_orientation>ENU</world_frame_orientation>
+      <latitude_deg>31.90325</latitude_deg>
+      <longitude_deg>120.15825</longitude_deg>
+      <elevation>3</elevation>
+    </spherical_coordinates>
+    <!-- ===== GROUND ===== -->
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <plane><normal>0 0 1</normal><size>1 1</size></plane>
+          </geometry>
+          <surface><friction><ode/></friction><bounce/><contact/></surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <plane><normal>0 0 1</normal><size>660 510</size></plane>
+          </geometry>
+          <material>
+            <ambient>0.25 0.55 0.18 1</ambient>
+            <diffuse>0.35 0.65 0.25 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <pose>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia><ixx>1</ixx><ixy>0</ixy><ixz>0</ixz><iyy>1</iyy><iyz>0</iyz><izz>1</izz></inertia>
+        </inertial>
+        <enable_wind>true</enable_wind>
+      </link>
+      <pose>0 0 0 0 -0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <!-- ===== LAKE ===== -->
+    <model name="lake">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>110 80 0.005</size></box></geometry>
+          <material>
+            <ambient>0.0 0.15 0.4 0.85</ambient>
+            <diffuse>0.1 0.3 0.6 0.85</diffuse>
+            <specular>0.5 0.5 0.7 0.85</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>0 -8 0.001 0 0 0</pose>
+    </model>
+    <!-- ===== RED BENCHMARK MARKER (origin) ===== -->
+    <model name="benchmark_marker">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><cylinder><radius>3</radius><length>0.05</length></cylinder></geometry>
+          <material>
+            <ambient>0.8 0.1 0.1 1</ambient>
+            <diffuse>0.9 0.15 0.15 1</diffuse>
+          </material>
+        </visual>
+      </link>
+      <pose>0 -220 0.008 0 0 0</pose>
+    </model>
+    <model name="road_axis">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>15 495 0.01</size></box></geometry>
+          <material>
+            <ambient>0.28 0.28 0.28 1</ambient>
+            <diffuse>0.38 0.38 0.38 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>0 22.5 0.005 0 0 0</pose>
+    </model>
+    <model name="road_north_boundary">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>620 15 0.01</size></box></geometry>
+          <material>
+            <ambient>0.28 0.28 0.28 1</ambient>
+            <diffuse>0.38 0.38 0.38 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>0 265 0.005 0 0 0</pose>
+    </model>
+    <model name="road_south_boundary">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>620 15 0.01</size></box></geometry>
+          <material>
+            <ambient>0.28 0.28 0.28 1</ambient>
+            <diffuse>0.38 0.38 0.38 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>0 -220 0.005 0 0 0</pose>
+    </model>
+    <model name="road_east_longitudinal">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>12 495 0.01</size></box></geometry>
+          <material>
+            <ambient>0.28 0.28 0.28 1</ambient>
+            <diffuse>0.38 0.38 0.38 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>295 22.5 0.005 0 0 0</pose>
+    </model>
+    <model name="road_ring_00">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>10 18.891932121753268 0.01</size></box></geometry>
+          <material>
+            <ambient>0.30 0.30 0.30 1</ambient>
+            <diffuse>0.40 0.40 0.40 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>55.79250644282732 51.18440237676215 0.005 0 0 1.8066745296393754</pose>
+    </model>
+    <model name="road_ring_01">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>10 20.014319010346096 0.01</size></box></geometry>
+          <material>
+            <ambient>0.30 0.30 0.30 1</ambient>
+            <diffuse>0.40 0.40 0.40 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>47.29860309723719 68.15496512523929 0.005 0 0 2.2500226231250684</pose>
+    </model>
+    <model name="road_ring_02">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>10 21.50182908508371 0.01</size></box></geometry>
+          <material>
+            <ambient>0.30 0.30 0.30 1</ambient>
+            <diffuse>0.40 0.40 0.40 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>31.603916192997488 81.14367152874802 0.005 0 0 2.6364679181743162</pose>
+    </model>
+    <model name="road_ring_03">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>10 22.494366409372827 0.01</size></box></geometry>
+          <material>
+            <ambient>0.30 0.30 0.30 1</ambient>
+            <diffuse>0.40 0.40 0.40 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>11.097819538587608 88.17310878027088 0.005 0 0 2.9784387787199136</pose>
+    </model>
+    <model name="road_ring_04">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>10 22.494366409372827 0.01</size></box></geometry>
+          <material>
+            <ambient>0.30 0.30 0.30 1</ambient>
+            <diffuse>0.40 0.40 0.40 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-11.0978195385876 88.17310878027088 0.005 0 0 -2.9784387787199136</pose>
+    </model>
+    <model name="road_ring_05">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>10 21.501829085083703 0.01</size></box></geometry>
+          <material>
+            <ambient>0.30 0.30 0.30 1</ambient>
+            <diffuse>0.40 0.40 0.40 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-31.60391619299748 81.14367152874803 0.005 0 0 -2.6364679181743167</pose>
+    </model>
+    <model name="road_ring_06">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>10 20.014319010346107 0.01</size></box></geometry>
+          <material>
+            <ambient>0.30 0.30 0.30 1</ambient>
+            <diffuse>0.40 0.40 0.40 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-47.29860309723719 68.1549651252393 0.005 0 0 -2.2500226231250684</pose>
+    </model>
+    <model name="road_ring_07">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>10 18.891932121753268 0.01</size></box></geometry>
+          <material>
+            <ambient>0.30 0.30 0.30 1</ambient>
+            <diffuse>0.40 0.40 0.40 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-55.79250644282732 51.184402376762165 0.005 0 0 -1.8066745296393754</pose>
+    </model>
+    <model name="road_ring_08">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>10 18.891932121753268 0.01</size></box></geometry>
+          <material>
+            <ambient>0.30 0.30 0.30 1</ambient>
+            <diffuse>0.40 0.40 0.40 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-55.79250644282732 32.81559762323785 0.005 0 0 -1.3349181239504182</pose>
+    </model>
+    <model name="road_ring_09">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>10 20.014319010346107 0.01</size></box></geometry>
+          <material>
+            <ambient>0.30 0.30 0.30 1</ambient>
+            <diffuse>0.40 0.40 0.40 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-47.298603097237205 15.845034874760708 0.005 0 0 -0.8915700304647254</pose>
+    </model>
+    <model name="road_ring_10">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>10 21.501829085083685 0.01</size></box></geometry>
+          <material>
+            <ambient>0.30 0.30 0.30 1</ambient>
+            <diffuse>0.40 0.40 0.40 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-31.603916192997502 2.8563284712519845 0.005 0 0 -0.505124735415477</pose>
+    </model>
+    <model name="road_ring_11">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>10 22.494366409372848 0.01</size></box></geometry>
+          <material>
+            <ambient>0.30 0.30 0.30 1</ambient>
+            <diffuse>0.40 0.40 0.40 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-11.097819538587625 -4.173108780270876 0.005 0 0 -0.1631538748698801</pose>
+    </model>
+    <model name="road_ring_12">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>10 22.494366409372848 0.01</size></box></geometry>
+          <material>
+            <ambient>0.30 0.30 0.30 1</ambient>
+            <diffuse>0.40 0.40 0.40 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>11.097819538587604 -4.17310878027088 0.005 0 0 0.16315387486987976</pose>
+    </model>
+    <model name="road_ring_13">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>10 21.501829085083685 0.01</size></box></geometry>
+          <material>
+            <ambient>0.30 0.30 0.30 1</ambient>
+            <diffuse>0.40 0.40 0.40 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>31.60391619299748 2.8563284712519774 0.005 0 0 0.505124735415477</pose>
+    </model>
+    <model name="road_ring_14">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>10 20.014319010346092 0.01</size></box></geometry>
+          <material>
+            <ambient>0.30 0.30 0.30 1</ambient>
+            <diffuse>0.40 0.40 0.40 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>47.298603097237184 15.845034874760689 0.005 0 0 0.8915700304647243</pose>
+    </model>
+    <model name="road_ring_15">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>10 18.891932121753282 0.01</size></box></geometry>
+          <material>
+            <ambient>0.30 0.30 0.30 1</ambient>
+            <diffuse>0.40 0.40 0.40 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>55.79250644282731 32.81559762323782 0.005 0 0 1.3349181239504175</pose>
+    </model>
+    <model name="road_ring_nw_branch">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>10 190 0.01</size></box></geometry>
+          <material>
+            <ambient>0.30 0.30 0.30 1</ambient>
+            <diffuse>0.40 0.40 0.40 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-70 170 0.005 0 0 0</pose>
+    </model>
+    <model name="road_ring_nw_branch2">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>10 210 0.01</size></box></geometry>
+          <material>
+            <ambient>0.30 0.30 0.30 1</ambient>
+            <diffuse>0.40 0.40 0.40 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-45 100 0.005 0 0 0</pose>
+    </model>
+    <model name="road_ring_ne_branch">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>10 190 0.01</size></box></geometry>
+          <material>
+            <ambient>0.30 0.30 0.30 1</ambient>
+            <diffuse>0.40 0.40 0.40 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>70 170 0.005 0 0 0</pose>
+    </model>
+    <model name="road_ring_ne_branch2">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>10 210 0.01</size></box></geometry>
+          <material>
+            <ambient>0.30 0.30 0.30 1</ambient>
+            <diffuse>0.40 0.40 0.40 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>45 100 0.005 0 0 0</pose>
+    </model>
+    <model name="road_grid_ew1">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>192 8 0.01</size></box></geometry>
+          <material>
+            <ambient>0.28 0.28 0.28 1</ambient>
+            <diffuse>0.38 0.38 0.38 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>0 -15 0.005 0 0 0</pose>
+    </model>
+    <model name="road_grid_ew2">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>192 8 0.01</size></box></geometry>
+          <material>
+            <ambient>0.28 0.28 0.28 1</ambient>
+            <diffuse>0.38 0.38 0.38 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>0 -70 0.005 0 0 0</pose>
+    </model>
+    <model name="road_grid_ew3">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>192 8 0.01</size></box></geometry>
+          <material>
+            <ambient>0.28 0.28 0.28 1</ambient>
+            <diffuse>0.38 0.38 0.38 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>0 -125 0.005 0 0 0</pose>
+    </model>
+    <model name="road_grid_ew4">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>192 8 0.01</size></box></geometry>
+          <material>
+            <ambient>0.28 0.28 0.28 1</ambient>
+            <diffuse>0.38 0.38 0.38 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>0 -180 0.005 0 0 0</pose>
+    </model>
+    <model name="road_grid_ns1">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>8 205 0.01</size></box></geometry>
+          <material>
+            <ambient>0.28 0.28 0.28 1</ambient>
+            <diffuse>0.38 0.38 0.38 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-82 -82.5 0.005 0 0 0</pose>
+    </model>
+    <model name="road_grid_ns2">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>8 205 0.01</size></box></geometry>
+          <material>
+            <ambient>0.28 0.28 0.28 1</ambient>
+            <diffuse>0.38 0.38 0.38 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-52 -82.5 0.005 0 0 0</pose>
+    </model>
+    <model name="road_grid_ns3">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>8 205 0.01</size></box></geometry>
+          <material>
+            <ambient>0.28 0.28 0.28 1</ambient>
+            <diffuse>0.38 0.38 0.38 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-22 -82.5 0.005 0 0 0</pose>
+    </model>
+    <model name="road_grid_ns4">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>8 205 0.01</size></box></geometry>
+          <material>
+            <ambient>0.28 0.28 0.28 1</ambient>
+            <diffuse>0.38 0.38 0.38 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>22 -82.5 0.005 0 0 0</pose>
+    </model>
+    <model name="road_grid_ns5">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>8 205 0.01</size></box></geometry>
+          <material>
+            <ambient>0.28 0.28 0.28 1</ambient>
+            <diffuse>0.38 0.38 0.38 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>52 -82.5 0.005 0 0 0</pose>
+    </model>
+    <model name="road_grid_ns6">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>8 205 0.01</size></box></geometry>
+          <material>
+            <ambient>0.28 0.28 0.28 1</ambient>
+            <diffuse>0.38 0.38 0.38 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>82 -82.5 0.005 0 0 0</pose>
+    </model>
+    <model name="road_east_branch_005">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>90 8 0.01</size></box></geometry>
+          <material>
+            <ambient>0.28 0.28 0.28 1</ambient>
+            <diffuse>0.38 0.38 0.38 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>250 -100 0.005 0 0 0</pose>
+    </model>
+    <model name="road_east_branch_055">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>90 8 0.01</size></box></geometry>
+          <material>
+            <ambient>0.28 0.28 0.28 1</ambient>
+            <diffuse>0.38 0.38 0.38 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>250 -50 0.005 0 0 0</pose>
+    </model>
+    <model name="road_east_branch_105">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>90 8 0.01</size></box></geometry>
+          <material>
+            <ambient>0.28 0.28 0.28 1</ambient>
+            <diffuse>0.38 0.38 0.38 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>250 0 0.005 0 0 0</pose>
+    </model>
+    <model name="road_east_branch_155">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>90 8 0.01</size></box></geometry>
+          <material>
+            <ambient>0.28 0.28 0.28 1</ambient>
+            <diffuse>0.38 0.38 0.38 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>250 50 0.005 0 0 0</pose>
+    </model>
+    <model name="road_east_branch_205">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>90 8 0.01</size></box></geometry>
+          <material>
+            <ambient>0.28 0.28 0.28 1</ambient>
+            <diffuse>0.38 0.38 0.38 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>250 100 0.005 0 0 0</pose>
+    </model>
+    <model name="path_lakeside_00">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 15.711251217742525 0.01</size></box></geometry>
+          <material>
+            <ambient>0.50 0.50 0.50 1</ambient>
+            <diffuse>0.60 0.60 0.60 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>68.8074039201174 49.764571353075624 0.004 0 0 1.7231998892998297</pose>
+    </model>
+    <model name="path_lakeside_01">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 16.07196856207393 0.01</size></box></geometry>
+          <material>
+            <ambient>0.50 0.50 0.50 1</ambient>
+            <diffuse>0.60 0.60 0.60 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>64.11829305257274 64.76457135307562 0.004 0 0 2.020953684364474</pose>
+    </model>
+    <model name="path_lakeside_02">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 16.678300810023863 0.01</size></box></geometry>
+          <material>
+            <ambient>0.50 0.50 0.50 1</ambient>
+            <diffuse>0.60 0.60 0.60 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>55.05962647398452 78.21320343559643 0.004 0 0 2.300961383088927</pose>
+    </model>
+    <model name="path_lakeside_03">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 17.352095987983596 0.01</size></box></geometry>
+          <material>
+            <ambient>0.50 0.50 0.50 1</ambient>
+            <diffuse>0.60 0.60 0.60 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>42.248737341529164 89.19396554912959 0.004 0 0 2.5598172831906942</pose>
+    </model>
+    <model name="path_lakeside_04">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 17.915155026556327 0.01</size></box></geometry>
+          <material>
+            <ambient>0.50 0.50 0.50 1</ambient>
+            <diffuse>0.60 0.60 0.60 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>26.55866657858823 96.95853690220521 0.004 0 0 2.8004347570558954</pose>
+    </model>
+    <model name="path_lakeside_05">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 18.23232125262231 0.01</size></box></geometry>
+          <material>
+            <ambient>0.50 0.50 0.50 1</ambient>
+            <diffuse>0.60 0.60 0.60 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>9.058666578588229 100.97777478867205 0.004 0 0 3.0292230181107205</pose>
+    </model>
+    <model name="path_lakeside_06">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 18.232321252622306 0.01</size></box></geometry>
+          <material>
+            <ambient>0.50 0.50 0.50 1</ambient>
+            <diffuse>0.60 0.60 0.60 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-9.05866657858822 100.97777478867205 0.004 0 0 -3.0292230181107205</pose>
+    </model>
+    <model name="path_lakeside_07">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 17.91515502655632 0.01</size></box></geometry>
+          <material>
+            <ambient>0.50 0.50 0.50 1</ambient>
+            <diffuse>0.60 0.60 0.60 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-26.558666578588216 96.95853690220521 0.004 0 0 -2.800434757055895</pose>
+    </model>
+    <model name="path_lakeside_08">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 17.352095987983606 0.01</size></box></geometry>
+          <material>
+            <ambient>0.50 0.50 0.50 1</ambient>
+            <diffuse>0.60 0.60 0.60 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-42.24873734152915 89.19396554912959 0.004 0 0 -2.5598172831906947</pose>
+    </model>
+    <model name="path_lakeside_09">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 16.678300810023867 0.01</size></box></geometry>
+          <material>
+            <ambient>0.50 0.50 0.50 1</ambient>
+            <diffuse>0.60 0.60 0.60 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-55.059626473984515 78.21320343559643 0.004 0 0 -2.3009613830889273</pose>
+    </model>
+    <model name="path_lakeside_10">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 16.071968562073916 0.01</size></box></geometry>
+          <material>
+            <ambient>0.50 0.50 0.50 1</ambient>
+            <diffuse>0.60 0.60 0.60 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-64.11829305257274 64.76457135307564 0.004 0 0 -2.020953684364474</pose>
+    </model>
+    <model name="path_lakeside_11">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 15.711251217742532 0.01</size></box></geometry>
+          <material>
+            <ambient>0.50 0.50 0.50 1</ambient>
+            <diffuse>0.60 0.60 0.60 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-68.8074039201174 49.76457135307564 0.004 0 0 -1.7231998892998297</pose>
+    </model>
+    <model name="path_lakeside_12">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 15.711251217742532 0.01</size></box></geometry>
+          <material>
+            <ambient>0.50 0.50 0.50 1</ambient>
+            <diffuse>0.60 0.60 0.60 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-68.8074039201174 34.235428646924376 0.004 0 0 -1.4183927642899636</pose>
+    </model>
+    <model name="path_lakeside_13">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 16.07196856207391 0.01</size></box></geometry>
+          <material>
+            <ambient>0.50 0.50 0.50 1</ambient>
+            <diffuse>0.60 0.60 0.60 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-64.11829305257274 19.235428646924383 0.004 0 0 -1.1206389692253194</pose>
+    </model>
+    <model name="path_lakeside_14">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 16.678300810023842 0.01</size></box></geometry>
+          <material>
+            <ambient>0.50 0.50 0.50 1</ambient>
+            <diffuse>0.60 0.60 0.60 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-55.05962647398454 5.786796564403597 0.004 0 0 -0.8406312705008667</pose>
+    </model>
+    <model name="path_lakeside_15">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 17.35209598798361 0.01</size></box></geometry>
+          <material>
+            <ambient>0.50 0.50 0.50 1</ambient>
+            <diffuse>0.60 0.60 0.60 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-42.24873734152919 -5.193965549129565 0.004 0 0 -0.5817753703990993</pose>
+    </model>
+    <model name="path_lakeside_16">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 17.915155026556363 0.01</size></box></geometry>
+          <material>
+            <ambient>0.50 0.50 0.50 1</ambient>
+            <diffuse>0.60 0.60 0.60 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-26.558666578588237 -12.958536902205203 0.004 0 0 -0.3411578965338981</pose>
+    </model>
+    <model name="path_lakeside_17">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 18.232321252622288 0.01</size></box></geometry>
+          <material>
+            <ambient>0.50 0.50 0.50 1</ambient>
+            <diffuse>0.60 0.60 0.60 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-9.058666578588229 -16.97777478867205 0.004 0 0 -0.11236963547907308</pose>
+    </model>
+    <model name="path_lakeside_18">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 18.23232125262229 0.01</size></box></geometry>
+          <material>
+            <ambient>0.50 0.50 0.50 1</ambient>
+            <diffuse>0.60 0.60 0.60 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>9.058666578588204 -16.977774788672054 0.004 0 0 0.11236963547907265</pose>
+    </model>
+    <model name="path_lakeside_19">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 17.915155026556363 0.01</size></box></geometry>
+          <material>
+            <ambient>0.50 0.50 0.50 1</ambient>
+            <diffuse>0.60 0.60 0.60 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>26.558666578588216 -12.95853690220521 0.004 0 0 0.3411578965338981</pose>
+    </model>
+    <model name="path_lakeside_20">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 17.352095987983574 0.01</size></box></geometry>
+          <material>
+            <ambient>0.50 0.50 0.50 1</ambient>
+            <diffuse>0.60 0.60 0.60 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>42.248737341529164 -5.193965549129587 0.004 0 0 0.5817753703990985</pose>
+    </model>
+    <model name="path_lakeside_21">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 16.678300810023842 0.01</size></box></geometry>
+          <material>
+            <ambient>0.50 0.50 0.50 1</ambient>
+            <diffuse>0.60 0.60 0.60 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>55.0596264739845 5.786796564403556 0.004 0 0 0.8406312705008656</pose>
+    </model>
+    <model name="path_lakeside_22">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 16.071968562073916 0.01</size></box></geometry>
+          <material>
+            <ambient>0.50 0.50 0.50 1</ambient>
+            <diffuse>0.60 0.60 0.60 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>64.11829305257272 19.23542864692434 0.004 0 0 1.1206389692253185</pose>
+    </model>
+    <model name="path_lakeside_23">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 15.711251217742559 0.01</size></box></geometry>
+          <material>
+            <ambient>0.50 0.50 0.50 1</ambient>
+            <diffuse>0.60 0.60 0.60 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>68.80740392011738 34.23542864692435 0.004 0 0 1.418392764289963</pose>
+    </model>
+    <model name="dirt_path_01">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 100 0.01</size></box></geometry>
+          <material>
+            <ambient>0.55 0.45 0.30 1</ambient>
+            <diffuse>0.65 0.55 0.35 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>160 160 0.003 0 0 0.2617993877991494</pose>
+    </model>
+    <model name="dirt_path_02">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 120 0.01</size></box></geometry>
+          <material>
+            <ambient>0.55 0.45 0.30 1</ambient>
+            <diffuse>0.65 0.55 0.35 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>175 125 0.003 0 0 -0.3490658503988659</pose>
+    </model>
+    <model name="dirt_path_03">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 90 0.01</size></box></geometry>
+          <material>
+            <ambient>0.55 0.45 0.30 1</ambient>
+            <diffuse>0.65 0.55 0.35 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>190 80 0.003 0 0 0.5235987755982988</pose>
+    </model>
+    <model name="dirt_path_04">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 75 0.01</size></box></geometry>
+          <material>
+            <ambient>0.55 0.45 0.30 1</ambient>
+            <diffuse>0.65 0.55 0.35 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>210 140 0.003 0 0 -0.7853981633974483</pose>
+    </model>
+    <model name="peninsula">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>55 18 0.003</size></box></geometry>
+          <material>
+            <ambient>0.25 0.55 0.18 1</ambient>
+            <diffuse>0.35 0.65 0.25 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>0 30 0.003 0 0 0</pose>
+    </model>
+    <model name="central_plaza">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>65 28 0.005</size></box></geometry>
+          <material>
+            <ambient>0.65 0.63 0.60 1</ambient>
+            <diffuse>0.72 0.70 0.67 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>0 22 0.003 0 0 0</pose>
+    </model>
+    <model name="library">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>75 48 24</size></box></geometry>
+          <surface><friction><ode/></friction><bounce/><contact/></surface>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>75 48 24</size></box></geometry>
+          <material>
+            <ambient>0.85 0.80 0.72 1</ambient>
+            <diffuse>0.90 0.86 0.78 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>0 60 12.0 0 0 0</pose>
+    </model>
+    <model name="teaching_r1_w1">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>24 42 16</size></box></geometry>
+          <surface><friction><ode/></friction><bounce/><contact/></surface>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>24 42 16</size></box></geometry>
+          <material>
+            <ambient>0.75 0.75 0.78 1</ambient>
+            <diffuse>0.80 0.80 0.83 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-62 -42.5 8.0 0 0 0</pose>
+    </model>
+    <model name="teaching_r1_w2">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>24 42 16</size></box></geometry>
+          <surface><friction><ode/></friction><bounce/><contact/></surface>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>24 42 16</size></box></geometry>
+          <material>
+            <ambient>0.75 0.75 0.78 1</ambient>
+            <diffuse>0.80 0.80 0.83 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-33 -42.5 8.0 0 0 0</pose>
+    </model>
+    <model name="teaching_r1_e3">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>24 42 16</size></box></geometry>
+          <surface><friction><ode/></friction><bounce/><contact/></surface>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>24 42 16</size></box></geometry>
+          <material>
+            <ambient>0.75 0.75 0.78 1</ambient>
+            <diffuse>0.80 0.80 0.83 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>33 -42.5 8.0 0 0 0</pose>
+    </model>
+    <model name="teaching_r1_e4">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>24 42 16</size></box></geometry>
+          <surface><friction><ode/></friction><bounce/><contact/></surface>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>24 42 16</size></box></geometry>
+          <material>
+            <ambient>0.75 0.75 0.78 1</ambient>
+            <diffuse>0.80 0.80 0.83 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>62 -42.5 8.0 0 0 0</pose>
+    </model>
+    <model name="teaching_r2_w1">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>24 42 16</size></box></geometry>
+          <surface><friction><ode/></friction><bounce/><contact/></surface>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>24 42 16</size></box></geometry>
+          <material>
+            <ambient>0.75 0.75 0.78 1</ambient>
+            <diffuse>0.80 0.80 0.83 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-62 -97.5 8.0 0 0 0</pose>
+    </model>
+    <model name="teaching_r2_w2">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>24 42 16</size></box></geometry>
+          <surface><friction><ode/></friction><bounce/><contact/></surface>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>24 42 16</size></box></geometry>
+          <material>
+            <ambient>0.75 0.75 0.78 1</ambient>
+            <diffuse>0.80 0.80 0.83 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-33 -97.5 8.0 0 0 0</pose>
+    </model>
+    <model name="teaching_r2_e3">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>24 42 16</size></box></geometry>
+          <surface><friction><ode/></friction><bounce/><contact/></surface>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>24 42 16</size></box></geometry>
+          <material>
+            <ambient>0.75 0.75 0.78 1</ambient>
+            <diffuse>0.80 0.80 0.83 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>33 -97.5 8.0 0 0 0</pose>
+    </model>
+    <model name="teaching_r2_e4">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>24 42 16</size></box></geometry>
+          <surface><friction><ode/></friction><bounce/><contact/></surface>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>24 42 16</size></box></geometry>
+          <material>
+            <ambient>0.75 0.75 0.78 1</ambient>
+            <diffuse>0.80 0.80 0.83 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>62 -97.5 8.0 0 0 0</pose>
+    </model>
+    <model name="teaching_r3_w1">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>24 42 16</size></box></geometry>
+          <surface><friction><ode/></friction><bounce/><contact/></surface>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>24 42 16</size></box></geometry>
+          <material>
+            <ambient>0.75 0.75 0.78 1</ambient>
+            <diffuse>0.80 0.80 0.83 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-62 -152.5 8.0 0 0 0</pose>
+    </model>
+    <model name="teaching_r3_w2">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>24 42 16</size></box></geometry>
+          <surface><friction><ode/></friction><bounce/><contact/></surface>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>24 42 16</size></box></geometry>
+          <material>
+            <ambient>0.75 0.75 0.78 1</ambient>
+            <diffuse>0.80 0.80 0.83 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-33 -152.5 8.0 0 0 0</pose>
+    </model>
+    <model name="teaching_r3_e3">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>24 42 16</size></box></geometry>
+          <surface><friction><ode/></friction><bounce/><contact/></surface>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>24 42 16</size></box></geometry>
+          <material>
+            <ambient>0.75 0.75 0.78 1</ambient>
+            <diffuse>0.80 0.80 0.83 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>33 -152.5 8.0 0 0 0</pose>
+    </model>
+    <model name="teaching_r3_e4">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>24 42 16</size></box></geometry>
+          <surface><friction><ode/></friction><bounce/><contact/></surface>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>24 42 16</size></box></geometry>
+          <material>
+            <ambient>0.75 0.75 0.78 1</ambient>
+            <diffuse>0.80 0.80 0.83 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>62 -152.5 8.0 0 0 0</pose>
+    </model>
+    <model name="aux_building_1">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>28 18 8</size></box></geometry>
+          <surface><friction><ode/></friction><bounce/><contact/></surface>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>28 18 8</size></box></geometry>
+          <material>
+            <ambient>0.72 0.72 0.72 1</ambient>
+            <diffuse>0.78 0.78 0.78 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-160 120 4.0 0 0 0</pose>
+    </model>
+    <model name="aux_building_2">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>28 18 8</size></box></geometry>
+          <surface><friction><ode/></friction><bounce/><contact/></surface>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>28 18 8</size></box></geometry>
+          <material>
+            <ambient>0.72 0.72 0.72 1</ambient>
+            <diffuse>0.78 0.78 0.78 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-150 70 4.0 0 0 0</pose>
+    </model>
+    <model name="aux_building_3">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>28 18 8</size></box></geometry>
+          <surface><friction><ode/></friction><bounce/><contact/></surface>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>28 18 8</size></box></geometry>
+          <material>
+            <ambient>0.72 0.72 0.72 1</ambient>
+            <diffuse>0.78 0.78 0.78 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-140 20 4.0 0 0 0</pose>
+    </model>
+    <model name="sports_field_base">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>120 70 0.005</size></box></geometry>
+          <material>
+            <ambient>0.6 0.15 0.1 1</ambient>
+            <diffuse>0.7 0.2 0.15 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>200 -170 0.003 0 0 0</pose>
+    </model>
+    <model name="sports_field_center">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>55 90 0.006</size></box></geometry>
+          <material>
+            <ambient>0.15 0.50 0.15 1</ambient>
+            <diffuse>0.20 0.60 0.20 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>200 -170 0.004 0 0 0</pose>
+    </model>
+    <model name="bare_soil">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>150 160 0.005</size></box></geometry>
+          <material>
+            <ambient>0.55 0.45 0.30 1</ambient>
+            <diffuse>0.65 0.55 0.35 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>230 130 0.002 0 0 0</pose>
+    </model>
+    <model name="green_east_grassland">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>160 300 0.003</size></box></geometry>
+          <material>
+            <ambient>0.25 0.55 0.18 1</ambient>
+            <diffuse>0.35 0.65 0.25 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>230 20 0.002 0 0 0</pose>
+    </model>
+    <model name="green_west_strip">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>120 300 0.003</size></box></geometry>
+          <material>
+            <ambient>0.25 0.55 0.18 1</ambient>
+            <diffuse>0.35 0.65 0.25 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-230 50 0.002 0 0 0</pose>
+    </model>
+    <model name="green_ring_0">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>96 12 0.003</size></box></geometry>
+          <material>
+            <ambient>0.25 0.55 0.18 1</ambient>
+            <diffuse>0.35 0.65 0.25 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-48 -48 0.002 0 0 0</pose>
+    </model>
+    <model name="green_ring_1">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>12 96 0.003</size></box></geometry>
+          <material>
+            <ambient>0.25 0.55 0.18 1</ambient>
+            <diffuse>0.35 0.65 0.25 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>-48 48 0.002 0 0 0</pose>
+    </model>
+    <model name="green_ring_2">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>96 12 0.003</size></box></geometry>
+          <material>
+            <ambient>0.25 0.55 0.18 1</ambient>
+            <diffuse>0.35 0.65 0.25 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>48 48 0.002 0 0 0</pose>
+    </model>
+    <model name="green_ring_3">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>12 96 0.003</size></box></geometry>
+          <material>
+            <ambient>0.25 0.55 0.18 1</ambient>
+            <diffuse>0.35 0.65 0.25 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>48 -48 0.002 0 0 0</pose>
+    </model>
+    <model name="tree_1">
+      <static>true</static>
+      <link name="link">
+        <visual name="trunk">
+          <geometry><cylinder><radius>1.5</radius><length>0.4</length></cylinder></geometry>
+          <material>
+            <ambient>0.35 0.25 0.15 1</ambient>
+            <diffuse>0.45 0.30 0.20 1</diffuse>
+          </material>
+        </visual>
+        <visual name="crown">
+          <geometry><sphere><radius>3.5</radius></sphere></geometry>
+          <material>
+            <ambient>0.12 0.40 0.10 1</ambient>
+            <diffuse>0.15 0.50 0.12 1</diffuse>
+          </material>
+          <pose>0 0 2.5 0 0 0</pose>
+        </visual>
+      </link>
+      <pose>-20 18 0.2 0 0 0</pose>
+    </model>
+    <model name="tree_2">
+      <static>true</static>
+      <link name="link">
+        <visual name="trunk">
+          <geometry><cylinder><radius>1.5</radius><length>0.4</length></cylinder></geometry>
+          <material>
+            <ambient>0.35 0.25 0.15 1</ambient>
+            <diffuse>0.45 0.30 0.20 1</diffuse>
+          </material>
+        </visual>
+        <visual name="crown">
+          <geometry><sphere><radius>3.5</radius></sphere></geometry>
+          <material>
+            <ambient>0.12 0.40 0.10 1</ambient>
+            <diffuse>0.15 0.50 0.12 1</diffuse>
+          </material>
+          <pose>0 0 2.5 0 0 0</pose>
+        </visual>
+      </link>
+      <pose>20 18 0.2 0 0 0</pose>
+    </model>
+    <model name="tree_3">
+      <static>true</static>
+      <link name="link">
+        <visual name="trunk">
+          <geometry><cylinder><radius>1.5</radius><length>0.4</length></cylinder></geometry>
+          <material>
+            <ambient>0.35 0.25 0.15 1</ambient>
+            <diffuse>0.45 0.30 0.20 1</diffuse>
+          </material>
+        </visual>
+        <visual name="crown">
+          <geometry><sphere><radius>3.5</radius></sphere></geometry>
+          <material>
+            <ambient>0.12 0.40 0.10 1</ambient>
+            <diffuse>0.15 0.50 0.12 1</diffuse>
+          </material>
+          <pose>0 0 2.5 0 0 0</pose>
+        </visual>
+      </link>
+      <pose>0 15 0.2 0 0 0</pose>
+    </model>
+    <model name="tree_4">
+      <static>true</static>
+      <link name="link">
+        <visual name="trunk">
+          <geometry><cylinder><radius>1.5</radius><length>0.4</length></cylinder></geometry>
+          <material>
+            <ambient>0.35 0.25 0.15 1</ambient>
+            <diffuse>0.45 0.30 0.20 1</diffuse>
+          </material>
+        </visual>
+        <visual name="crown">
+          <geometry><sphere><radius>3.5</radius></sphere></geometry>
+          <material>
+            <ambient>0.12 0.40 0.10 1</ambient>
+            <diffuse>0.15 0.50 0.12 1</diffuse>
+          </material>
+          <pose>0 0 2.5 0 0 0</pose>
+        </visual>
+      </link>
+      <pose>-10 25 0.2 0 0 0</pose>
+    </model>
+    <model name="tree_5">
+      <static>true</static>
+      <link name="link">
+        <visual name="trunk">
+          <geometry><cylinder><radius>1.5</radius><length>0.4</length></cylinder></geometry>
+          <material>
+            <ambient>0.35 0.25 0.15 1</ambient>
+            <diffuse>0.45 0.30 0.20 1</diffuse>
+          </material>
+        </visual>
+        <visual name="crown">
+          <geometry><sphere><radius>3.5</radius></sphere></geometry>
+          <material>
+            <ambient>0.12 0.40 0.10 1</ambient>
+            <diffuse>0.15 0.50 0.12 1</diffuse>
+          </material>
+          <pose>0 0 2.5 0 0 0</pose>
+        </visual>
+      </link>
+      <pose>10 25 0.2 0 0 0</pose>
+    </model>
+    <model name="tree_6">
+      <static>true</static>
+      <link name="link">
+        <visual name="trunk">
+          <geometry><cylinder><radius>1.5</radius><length>0.4</length></cylinder></geometry>
+          <material>
+            <ambient>0.35 0.25 0.15 1</ambient>
+            <diffuse>0.45 0.30 0.20 1</diffuse>
+          </material>
+        </visual>
+        <visual name="crown">
+          <geometry><sphere><radius>3.5</radius></sphere></geometry>
+          <material>
+            <ambient>0.12 0.40 0.10 1</ambient>
+            <diffuse>0.15 0.50 0.12 1</diffuse>
+          </material>
+          <pose>0 0 2.5 0 0 0</pose>
+        </visual>
+      </link>
+      <pose>-28 20 0.2 0 0 0</pose>
+    </model>
+    <model name="tree_7">
+      <static>true</static>
+      <link name="link">
+        <visual name="trunk">
+          <geometry><cylinder><radius>1.5</radius><length>0.4</length></cylinder></geometry>
+          <material>
+            <ambient>0.35 0.25 0.15 1</ambient>
+            <diffuse>0.45 0.30 0.20 1</diffuse>
+          </material>
+        </visual>
+        <visual name="crown">
+          <geometry><sphere><radius>3.5</radius></sphere></geometry>
+          <material>
+            <ambient>0.12 0.40 0.10 1</ambient>
+            <diffuse>0.15 0.50 0.12 1</diffuse>
+          </material>
+          <pose>0 0 2.5 0 0 0</pose>
+        </visual>
+      </link>
+      <pose>28 20 0.2 0 0 0</pose>
+    </model>
+    <model name="tree_8">
+      <static>true</static>
+      <link name="link">
+        <visual name="trunk">
+          <geometry><cylinder><radius>1.5</radius><length>0.4</length></cylinder></geometry>
+          <material>
+            <ambient>0.35 0.25 0.15 1</ambient>
+            <diffuse>0.45 0.30 0.20 1</diffuse>
+          </material>
+        </visual>
+        <visual name="crown">
+          <geometry><sphere><radius>3.5</radius></sphere></geometry>
+          <material>
+            <ambient>0.12 0.40 0.10 1</ambient>
+            <diffuse>0.15 0.50 0.12 1</diffuse>
+          </material>
+          <pose>0 0 2.5 0 0 0</pose>
+        </visual>
+      </link>
+      <pose>0 28 0.2 0 0 0</pose>
+    </model>
+    <!-- ===== CAR MARKER: yellow circle below car ===== -->
+    <model name="car_marker">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><cylinder><radius>1.5</radius><length>0.08</length></cylinder></geometry>
+          <material>
+            <ambient>1.0 0.8 0.0 1</ambient>
+            <diffuse>1.0 0.85 0.1 1</diffuse>
+            <specular>0.2 0.2 0.2 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>8 20 0.03 0 0 0</pose>
+    </model>
+
+    <!-- ===== CAR ON RING ROAD ===== -->
+    <model name="car_01">
+      <static>true</static>
+      <pose>8 20 0.35 0 0 0</pose>
+      <link name="body">
+        <visual name="body_visual">
+          <geometry><box><size>4.5 2.0 1.0</size></box></geometry>
+          <material>
+            <ambient>0.7 0.15 0.15 1</ambient>
+            <diffuse>0.8 0.2 0.2 1</diffuse>
+            <specular>0.2 0.2 0.2 1</specular>
+          </material>
+        </visual>
+        <pose>0 0 0.5 0 0 0</pose>
+      </link>
+      <link name="cabin">
+        <visual name="cabin_visual">
+          <geometry><box><size>2.2 1.8 0.55</size></box></geometry>
+          <material>
+            <ambient>0.15 0.5 0.8 1</ambient>
+            <diffuse>0.2 0.6 0.9 1</diffuse>
+            <specular>0.3 0.3 0.3 1</specular>
+          </material>
+        </visual>
+        <pose>0 0 1.15 0 0 0</pose>
+      </link>
+      <link name="wheel_fl">
+        <visual name="wheel_visual">
+          <geometry><cylinder><radius>0.35</radius><length>0.25</length></cylinder></geometry>
+          <material>
+            <ambient>0.1 0.1 0.1 1</ambient>
+            <diffuse>0.15 0.15 0.15 1</diffuse>
+          </material>
+        </visual>
+        <pose>1.6 1.15 0.3 1.5708 0 0</pose>
+      </link>
+      <link name="wheel_fr">
+        <visual name="wheel_visual">
+          <geometry><cylinder><radius>0.35</radius><length>0.25</length></cylinder></geometry>
+          <material>
+            <ambient>0.1 0.1 0.1 1</ambient>
+            <diffuse>0.15 0.15 0.15 1</diffuse>
+          </material>
+        </visual>
+        <pose>1.6 -1.15 0.3 1.5708 0 0</pose>
+      </link>
+      <link name="wheel_rl">
+        <visual name="wheel_visual">
+          <geometry><cylinder><radius>0.35</radius><length>0.25</length></cylinder></geometry>
+          <material>
+            <ambient>0.1 0.1 0.1 1</ambient>
+            <diffuse>0.15 0.15 0.15 1</diffuse>
+          </material>
+        </visual>
+        <pose>-1.6 1.15 0.3 1.5708 0 0</pose>
+      </link>
+      <link name="wheel_rr">
+        <visual name="wheel_visual">
+          <geometry><cylinder><radius>0.35</radius><length>0.25</length></cylinder></geometry>
+          <material>
+            <ambient>0.1 0.1 0.1 1</ambient>
+            <diffuse>0.15 0.15 0.15 1</diffuse>
+          </material>
+        </visual>
+        <pose>-1.6 -1.15 0.3 1.5708 0 0</pose>
+      </link>
+    </model>
+
+    <wind>
+      <linear_velocity>-7 -7 0</linear_velocity>
+    </wind>
+
+    <!-- ===== DRONE MARKER: red circle below drone ===== -->
+    <model name="drone_marker">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><cylinder><radius>2.5</radius><length>0.08</length></cylinder></geometry>
+          <material>
+            <ambient>1.0 0.0 0.0 1</ambient>
+            <diffuse>1.0 0.1 0.1 1</diffuse>
+            <specular>0.2 0.2 0.2 1</specular>
+          </material>
+        </visual>
+      </link>
+      <pose>0 20 0.03 0 0 0</pose>
+    </model>
+
+    <!-- ===== X500 DRONE: parked in front of library ===== -->
+    <include>
+      <uri>model://x500</uri>
+      <pose>0 20 0.3 0 0 0</pose>
+    </include>
+
+  </world>
+</sdf>

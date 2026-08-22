@@ -1,0 +1,37 @@
+name: Bug report
+description: 报告可复现的软件或仿真问题
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: 问题描述
+      description: 实际现象与预期现象是什么？
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: 环境
+      description: Ubuntu、ROS 2、PX4、px4_msgs、Agent版本和提交。
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 复现步骤
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: 日志
+      description: 请删除密钥、真实公网地址和其他敏感信息。
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: 安全确认
+      options:
+        - label: 我没有在有桨真机上复现未经评审的问题。
+          required: true

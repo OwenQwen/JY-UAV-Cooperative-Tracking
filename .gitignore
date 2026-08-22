@@ -1,0 +1,51 @@
+# ROS 2 / colcon generated files
+build/
+install/
+log/
+**/build/
+**/install/
+**/log/
+
+# Python generated files
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*Zone.Identifier*
+
+# Runtime data and logs
+*.ulg
+*.bag
+*.db3
+rosbag2_*/
+*.log
+*.mp4
+*.avi
+
+# Machine-learning binaries are distributed separately after license review
+*.pt
+*.pth
+*.onnx
+*.engine
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+
+# Local external checkouts
+external/

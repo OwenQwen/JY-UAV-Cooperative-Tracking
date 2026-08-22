@@ -1,0 +1,68 @@
+name: source-and-tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  source-and-tests:
+    runs-on: ubuntu-latest
+    container: ros:jazzy-ros-base-noble
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Install build tools
+        shell: bash
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends \
+            python3-colcon-common-extensions \
+            python3-pytest \
+            python3-rosdep \
+            python3-vcstool
+
+      - name: Create ROS workspace and import pinned interfaces
+        shell: bash
+        run: |
+          mkdir -p /tmp/tracking_ws/src
+          cp -a "$GITHUB_WORKSPACE" /tmp/tracking_ws/src/jy_uav_tracking
+          vcs import /tmp/tracking_ws/src < dependencies.repos
+
+      - name: Install ROS dependencies
+        shell: bash
+        run: |
+          rosdep init 2>/dev/null || true
+          rosdep update
+          rosdep install --from-paths /tmp/tracking_ws/src \
+            --ignore-src -r -y
+
+      - name: Compile Python source
+        shell: bash
+        run: |
+          python3 -m compileall -q infer_track uav_tracking_control
+
+      - name: Run platform-independent tests
+        shell: bash
+        env:
+          PYTHONPATH: infer_track
+        run: |
+          python3 -m pytest -q \
+            infer_track/test/test_mission_logic.py \
+            infer_track/test/test_position_filter.py \
+            infer_track/test/test_referee_protocol.py \
+            infer_track/test/test_referee_udp_node.py \
+            infer_track/test/test_tracking_logic.py
+
+      - name: Build ROS packages
+        shell: bash
+        run: |
+          source /opt/ros/jazzy/setup.bash
+          cd /tmp/tracking_ws
+          colcon build --event-handlers console_direct+ \
+            --packages-up-to \
+            infer_track_interfaces infer_track uav_tracking_control

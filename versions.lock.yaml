@@ -1,0 +1,27 @@
+schema: 1
+profiles:
+  archived_simulation_environment:
+    operating_system: Ubuntu 24.04
+    ros_distribution: Jazzy
+    px4_autopilot:
+      tag: v1.16.0
+      commit: 6ea3539157ca358c70a515878b77077af7d4611d
+    px4_msgs:
+      tag: v1.16.2
+      branch: release/1.16
+      commit: 392e831c1f659429ca83902e66820d7094591410
+    micro_xrce_dds_agent:
+      tag: v2.4.3
+      commit: 73622810d984349b80bbac0ef55fc0b694d62222
+    gazebo_model_repository:
+      repository: https://github.com/PX4/PX4-gazebo-models.git
+      commit: e05f4312d3f28aa621157610584a4870406cb6d3
+  companion_computer_history:
+    operating_system: Ubuntu 22.04 container on Jetson L4T R32.7.3 host
+    ros_distribution: Humble
+    micro_xrce_dds_agent: v2.4.2
+    note: Historical deployment profile; it is not reconstructed by CI.
+unrecovered_versions:
+  - torch
+  - ultralytics
+  - opencv

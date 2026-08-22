@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>uav_tracking_control</name>
+  <version>0.1.0</version>
+  <description>High-level cooperative tracking mission control for PX4 via ROS 2</description>
+  <maintainer email="198208059+OwenQwen@users.noreply.github.com">JL_tracking</maintainer>
+  <license>MIT</license>
+  <buildtool_depend>ament_python</buildtool_depend>
+  <depend>rclpy</depend>
+  <depend>px4_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>std_msgs</depend>
+  <depend>std_srvs</depend>
+  <depend>python3-yaml</depend>
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
+  <depend>ament_index_python</depend>
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

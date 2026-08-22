@@ -1,0 +1,4 @@
+# Desktop/SITL vision dependency. Install a platform-compatible PyTorch first.
+# Jetson users must use the NVIDIA/JetPack-compatible PyTorch build instead of
+# allowing pip to replace it with a generic wheel.
+ultralytics>=8,<9

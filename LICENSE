@@ -1,0 +1,9 @@
+This repository uses multiple licenses.
+
+- infer_track/, infer_track_interfaces/, documentation, and repository support
+  files: Apache License 2.0; see LICENSES/Apache-2.0.txt.
+- uav_tracking_control/: MIT License; see LICENSES/MIT.txt.
+- Third-party projects are not vendored here and retain their upstream
+  licenses. See docs/DEPENDENCIES.md.
+- Model weights are not covered by these licenses unless a release explicitly
+  states otherwise.
