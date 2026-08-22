@@ -14,7 +14,7 @@ jobs:
     container: ros:jazzy-ros-base-noble
     steps:
       - name: Check out source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install build tools
         shell: bash
@@ -51,12 +51,18 @@ jobs:
         env:
           PYTHONPATH: infer_track
         run: |
-          python3 -m pytest -q \
+          set -euo pipefail
+          for test_file in \
             infer_track/test/test_mission_logic.py \
             infer_track/test/test_position_filter.py \
             infer_track/test/test_referee_protocol.py \
             infer_track/test/test_referee_udp_node.py \
             infer_track/test/test_tracking_logic.py
+          do
+            echo "::group::${test_file}"
+            python3 -m pytest -q "${test_file}"
+            echo "::endgroup::"
+          done
 
       - name: Build ROS packages
         shell: bash
