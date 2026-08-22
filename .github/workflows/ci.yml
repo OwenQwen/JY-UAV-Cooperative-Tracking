@@ -51,6 +51,7 @@ jobs:
         env:
           PYTHONPATH: infer_track
         run: |
+          source /opt/ros/jazzy/setup.bash
           set -euo pipefail
           for test_file in \
             infer_track/test/test_mission_logic.py \
